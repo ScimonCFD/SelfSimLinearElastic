@@ -310,21 +310,6 @@ for pass_number in range(TOTAL_NUMBER_PASSES):
                                                      new_sigma), axis=0)
                     
                 else:
-                    # # The selfSimulation algorithm keeps the elastic data in 
-                    # # the training set.
-                    # x_training_set = \
-                    #     np.concatenate((original_x_training_set, 
-                    #     master_x_training_set[\
-                    #         (-1* SETS_IN_MOVING_WINDOW * \
-                    #          new_epsilon.shape[0]):, :], new_epsilon), 
-                    #         axis=0)
-                    # y_training_set = \
-                    #     np.concatenate((original_y_training_set, 
-                    #     master_y_training_set[\
-                    #         (-1* SETS_IN_MOVING_WINDOW * \
-                    #          new_sigma.shape[0]):, :], new_sigma), 
-                    #         axis=0)
-
                     x_training_set = \
                         np.concatenate((master_x_training_set[\
                             (-1* SETS_IN_MOVING_WINDOW * \

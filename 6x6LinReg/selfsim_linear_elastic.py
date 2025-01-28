@@ -305,27 +305,6 @@ for pass_number in range(TOTAL_NUMBER_PASSES):
                             (-1* SETS_IN_MOVING_WINDOW * 
                              sigma.shape[0]):, :], sigma), axis=0)
 
-            # # Save some fields to plot results 
-            # if (pass_number == 0 and i == 0):
-            #     serialise(sigma, ROUTE_NN_MODEL + "tests/", 
-            #               "sigma_simul_A_OriginalModel_LoadIncNum" + 
-            #               str(load_inc))
-            #     serialise(epsilon, ROUTE_NN_MODEL + "tests/", 
-            #               "epsilon_simul_B_OriginalModel_LoadIncNum" + 
-            #               str(load_inc))
-            #     serialise(sigma_simul_B, ROUTE_NN_MODEL + "tests/", 
-            #               "sigma_simul_B_OriginalModel_LoadIncNum" + 
-            #               str(load_inc))
-            #     serialise(epsilon_simul_A, ROUTE_NN_MODEL + "tests/", 
-            #               "epsilon_simul_A_OriginalModel_LoadIncNum" + 
-            #               str(load_inc))
-            #     serialise(D_simul_B, ROUTE_NN_MODEL + "tests/", 
-            #               "D_simul_B_OriginalModel_LoadIncNum" + 
-            #               str(load_inc))
-            #     serialise(D_simul_A, ROUTE_NN_MODEL + "tests/", 
-            #               "D_simul_A_OriginalModel_LoadIncNum" + 
-            #               str(load_inc))
-
             # Scale epsilon and sigma using the updated scaler 
             epsilon_scaled = x_scaler.transform(x_training_set)
             sigma_scaled = y_scaler.transform(y_training_set)          
@@ -336,9 +315,6 @@ for pass_number in range(TOTAL_NUMBER_PASSES):
             # Save the new linear model 
             dump(ML_model, 'NNBased/' + 'pythonNNBasePlateHole/' + 
                   'ML_model.joblib')
-
-            #Calculate mae(D_calculated, D_expected)
-            ############ If using the 3x3 model #######################
 
             diff = (mae(D_simul_A, D_expected).numpy()) / \
                 (np.sum(D_expected * D_expected))**0.5    
@@ -352,8 +328,6 @@ for pass_number in range(TOTAL_NUMBER_PASSES):
                       diff, "\n \n \n")        
 
             else:
-                # route_store_results = ROUTE_NN_MODEL + "loadpass" + \
-                #     str(pass_number + 1) + "_loadInc" +  str(load_inc) #+ "/"
                 route_store_results = ROUTE_NN_MODEL + "loadpass" + \
                     str(pass_number + 1) + "_loadInc" +  str(load_inc+1) 
                 
