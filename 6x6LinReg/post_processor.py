@@ -30,8 +30,8 @@ import matplotlib.pyplot as plt
 plt.rcParams['text.usetex'] = True
 
 mkpath(ROUTE_NN_MODEL + "Results/Plots/")
-terminal("cp -r " + ROUTE_NN_MODEL + "loadpass* " + ROUTE_NN_MODEL + 
-         "Results/")
+terminal("mv " + ROUTE_NN_MODEL + "loadpass* " + ROUTE_NN_MODEL + 
+          "Results/")
 master_folder_NN = ROUTE_NN_MODEL + "Results/"
 
 LOAD_INC_INTEREST = 15 #9
@@ -50,13 +50,13 @@ D_A_List = []
 D_B_List = []
 
 # Set the default text font size
-plt.rc('font', size=16)# Set the axes title font size
-plt.rc('axes', titlesize=20)# Set the axes labels font size
-plt.rc('axes', labelsize=20)# Set the font size for x tick labels
-plt.rc('xtick', labelsize=16)# Set the font size for y tick labels
-plt.rc('ytick', labelsize=16)# Set the legend font size
-plt.rc('legend', fontsize=18)# Set the font size of the figure title
-plt.rc('figure', titlesize=24)
+plt.rc('font', size=35)# Set the axes title font size
+plt.rc('axes', titlesize=35)# Set the axes labels font size
+plt.rc('axes', labelsize=35)# Set the font size for x tick labels
+plt.rc('xtick', labelsize=35)# Set the font size for y tick labels
+plt.rc('ytick', labelsize=35)# Set the legend font size
+plt.rc('legend', fontsize=25)# Set the font size of the figure title
+plt.rc('figure', titlesize=25)
 
 for i in range(1, TOTAL_NUMBER_PASSES+1, DELTA_PASSES):
     sigma_Expected = deserialise(master_folder_NN + "loadpass" + str(i) + 
@@ -119,7 +119,7 @@ for j in range(6):
     # fig = plt.figure(figsize=(15, 10))
     # plt.scatter(epsilon_Expected_List[0][:,j], 
     #             epsilon_simul_A_OriginalModel[:,j], color = "red", 
-    #             label = "Calculated", marker='x')
+    #             label = "C*lculated", marker='x')
     # plt.plot(epsilon_Expected_List[0][:,j], 
     #                 epsilon_Expected_List[0][:,j], 
     #                 color = "blue", label = "Ideal")
@@ -133,15 +133,16 @@ for j in range(6):
     # plt.close(fig)
     for i in range(TOTAL_NUMBER_PASSES):
         fig = plt.figure(figsize=(15, 10))
-        plt.scatter(epsilon_Expected_List[i][:,j], epsilon_A_List[i][:,j], 
-                    color = "green", label = "Calculated", marker='o')
-        plt.scatter(epsilon_Expected_List[0][:,j], 
-                    epsilon_simul_A_OriginalModel[:,j], color = "red", label = 
-                    "Original", marker='+')
-        plt.plot(epsilon_Expected_List[i][:,j], epsilon_Expected_List[0][:,j], 
-                 color = "blue", label = "Ideal", alpha=0.3)
-        plt.xlabel(r'Expected strain $(m/m)$')
-        plt.ylabel(r'Calculated strain $(m/m)$')
+        plt.scatter(epsilon_Expected_List[i][:,j]*1e6, epsilon_A_List[i][:,j]*1e6, 
+                    color = "green", label = "Calculated", marker='x', alpha=0.25, 
+                    linewidth = 15)
+        plt.scatter(epsilon_Expected_List[0][:,j]*1e6, 
+                    epsilon_simul_A_OriginalModel[:,j]*1e6, color = "red", label = 
+                    "Original", marker='+', linewidth = 15)
+        plt.plot(epsilon_Expected_List[i][:,j]*1e6, epsilon_Expected_List[0][:,j]*1e6, 
+                 color = "blue", label = "Ideal", linewidth = 5, alpha = 0.95)
+        plt.xlabel(r'Expected strain $(\mu \ m/m)$')
+        plt.ylabel(r'Calculated strain $(\mu \ m/m)$')
         # plt.ylabel("Calculated strain ( m/m)")
         
         # fig.suptitle("Load increment "+ str(LOAD_INC_INTEREST) 
@@ -169,15 +170,16 @@ for j in range(6):
     # plt.close(fig)
     for i in range(TOTAL_NUMBER_PASSES):
         fig = plt.figure(figsize=(15, 10))
-        plt.scatter(sigma_Expected_List[i][:,j], sigma_B_List[i][:,j], 
-                    color = "green", label = "Calculated", marker='o')
-        plt.scatter(sigma_Expected_List[0][:,j], 
-                    sigma_simul_B_OriginalModel[:,j], color = "red", label = 
-                    "Original", marker='+')
-        plt.plot(sigma_Expected_List[i][:,j], sigma_Expected_List[0][:,j], 
-                 color = "blue", label = "Ideal", alpha=0.3)
-        plt.xlabel(r'Expected stress $(Pa)$')
-        plt.ylabel(r'Calculated stress $(Pa)$')
+        plt.scatter(sigma_Expected_List[i][:,j]/1e6, sigma_B_List[i][:,j]/1e6, 
+                    color = "green", label = "Calculated", marker='x', alpha=0.25, 
+                    linewidth = 15)
+        plt.scatter(sigma_Expected_List[0][:,j]/1e6, 
+                    sigma_simul_B_OriginalModel[:,j]/1e6, color = "red", label = 
+                    "Original", marker='+', linewidth = 15)
+        plt.plot(sigma_Expected_List[i][:,j]/1e6, sigma_Expected_List[0][:,j]/1e6, 
+                 color = "blue", label = "Ideal", linewidth = 5, alpha = 0.95)
+        plt.xlabel(r'Expected stress $(MPa)$')
+        plt.ylabel(r'Calculated stress $(MPa)$')
         # fig.suptitle("Load increment "+ str(LOAD_INC_INTEREST) 
         #               + ". Pass number " + str(i+1) + ". Sigma_" 
         #               + component[j], fontsize=20)
@@ -212,12 +214,13 @@ for j in range(3):
     for i in range(TOTAL_NUMBER_PASSES):
         fig = plt.figure(figsize=(15, 10))
         plt.scatter(D_Expected_List[i][:,j]/1e-6, D_A_List[i][:,j]/1e-6, 
-                    color = "green", label = "Calculated", marker='o')
+                    color = "green", label = "Calculated", marker='x', alpha=0.25, 
+                    linewidth = 15)
         plt.scatter(D_Expected_List[0][:,j]/1e-6, 
                     D_simul_A_OriginalModel_LoadIncNum0[:,j]/1e-6, 
-                    color = "red", label = "Original", marker='+')
+                    color = "red", label = "Original", marker='+', linewidth = 15)
         plt.plot(D_Expected_List[i][:,j]/1e-6, D_Expected_List[0][:,j]/1e-6, 
-                 color = "blue", label = "Ideal", alpha = 0.3)
+                 color = "blue", label = "Ideal", linewidth = 5, alpha = 0.95)
         plt.xlabel(r'Expected displacement $(\mu m)$')
         plt.ylabel(r'Calculated displacement $(\mu m)$')
         # fig.suptitle("Load increment "+ str(LOAD_INC_INTEREST) 

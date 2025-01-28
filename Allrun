@@ -29,7 +29,11 @@ then
 fi
 
 # Run the cases
+
+echo "Running the calculation"
 (cd 3x3LinReg && python selfsim_linear_elastic.py && python post_processor.py &)
 (cd 3x3NN && python selfsim_linear_elastic.py && python post_processor.py &)
 (cd 6x6LinReg && python selfsim_linear_elastic.py && python post_processor.py &)
 (cd 6x6NN && python selfsim_linear_elastic.py && python post_processor.py &)
+
+echo "Calculation complete."
