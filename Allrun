@@ -31,9 +31,20 @@ fi
 # Run the cases
 
 echo "Running the calculation"
-(cd 3x3LinReg && python selfsim_linear_elastic.py && python post_processor.py &)
-(cd 3x3NN && python selfsim_linear_elastic.py && python post_processor.py &)
-(cd 6x6LinReg && python selfsim_linear_elastic.py && python post_processor.py &)
-(cd 6x6NN && python selfsim_linear_elastic.py && python post_processor.py &)
+(cd 3x3LinReg && python selfsim_linear_elastic.py && python post_processor.py) &
+(cd 3x3NN && python selfsim_linear_elastic.py && python post_processor.py) &
+(cd 6x6LinReg && python selfsim_linear_elastic.py && python post_processor.py) &
+(cd 6x6NN && python selfsim_linear_elastic.py && python post_processor.py) &
+
+# Wait for all background processes to finish
+wait
 
 echo "Calculation complete."
+
+mkdir -p SelfSim
+
+cp -r 6x6NN/NNBased/pythonNNBasePlateHole/Results/*loadInc1 SelfSim/
+cp -r 6x6NN/NNBased/pythonNNBasePlateHole/Results/*loadInc5 SelfSim/
+cp -r 6x6NN/NNBased/pythonNNBasePlateHole/Results/*loadInc15 SelfSim/
+
+python plot_error.py
